@@ -1,0 +1,115 @@
+<!-- ============================================
+     PAGE 5: events.html (Upcoming Events)
+     ============================================ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Events - The Bay Lounge</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pure-black: #000000;
+            --milk-cream: #FFFDD0;
+            --glass-border: rgba(255, 253, 208, 0.2);
+            --glass-bg: rgba(0, 0, 0, 0.6);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body {
+            font-family: 'Lato', sans-serif;
+            background: var(--pure-black);
+            color: var(--milk-cream);
+            min-height: 100vh;
+            background-image: url('https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=1600');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+        }
+        body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)); z-index: -1; }
+        h1, h2, h3, h4, .playfair { font-family: 'Playfair Display', serif; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; position: relative; z-index: 1; }
+        .nav-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; margin-bottom: 40px; border-bottom: 1px solid var(--glass-border); }
+        .logo { font-size: 1.8rem; letter-spacing: 2px; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); text-decoration: none; color: var(--milk-cream); }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { color: var(--milk-cream); text-decoration: none; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; transition: opacity 0.3s; position: relative; }
+        .nav-links a:hover { opacity: 0.7; }
+        .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 1px; background: var(--milk-cream); transition: width 0.3s; }
+        .nav-links a:hover::after { width: 100%; }
+        .btn { background: var(--milk-cream); color: var(--pure-black); border: none; padding: 12px 25px; font-family: 'Lato', sans-serif; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: all 0.3s ease; text-decoration: none; display: inline-block; text-align: center; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(255, 253, 208, 0.3); }
+        .back-btn { display: inline-flex; align-items: center; gap: 8px; background: transparent; border: 1px solid var(--milk-cream); color: var(--milk-cream); padding: 10px 20px; font-size: 0.85rem; font-family: 'Lato', sans-serif; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; margin-bottom: 30px; transition: all 0.3s ease; text-decoration: none; }
+        .back-btn:hover { background: var(--milk-cream); color: var(--pure-black); }
+        .page-title { font-size: 3rem; text-align: center; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); }
+        .page-subtitle { text-align: center; margin-bottom: 50px; opacity: 0.8; }
+        .loading { text-align: center; padding: 60px; font-size: 1.2rem; }
+        .error { text-align: center; padding: 60px; color: #ff6b6b; }
+        .events-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; }
+        .event-card { background: var(--glass-bg); border: 1px solid var(--glass-border); overflow: hidden; backdrop-filter: blur(10px); transition: transform 0.3s; }
+        .event-card:hover { transform: translateY(-5px); }
+        .event-image { width: 100%; height: 300px; object-fit: cover; display: block; }
+        .event-content { padding: 30px; }
+        .event-date { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; opacity: 0.8; margin-bottom: 10px; }
+        .event-title { font-size: 1.8rem; margin-bottom: 15px; text-shadow: 1px 1px 2px rgba(0,0,0,0.8); }
+        .event-desc { margin-bottom: 25px; line-height: 1.6; opacity: 0.9; }
+        .ticket-section { border-top: 1px solid var(--glass-border); padding-top: 20px; }
+        .ticket-label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; opacity: 0.8; }
+        .ticket-tiers { display: flex; gap: 10px; flex-wrap: wrap; }
+        .tier-btn { flex: 1; min-width: 100px; background: transparent; border: 1px solid var(--milk-cream); color: var(--milk-cream); padding: 12px; cursor: pointer; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; transition: all 0.3s; font-weight: 700; }
+        .tier-btn:hover { background: var(--milk-cream); color: var(--pure-black); }
+        .no-events { text-align: center; padding: 60px; background: var(--glass-bg); border: 1px solid var(--glass-border); backdrop-filter: blur(10px); }
+        .mobile-menu-btn { display: none; background: none; border: none; color: var(--milk-cream); font-size: 1.5rem; cursor: pointer; }
+        @media (max-width: 768px) { .nav-links { display: none; } .mobile-menu-btn { display: block; } .page-title { font-size: 2rem; } .events-grid { grid-template-columns: 1fr; } .event-image { height: 200px; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="nav-header">
+            <a href="index.html" class="logo playfair">The Bay Lounge</a>
+            <button class="mobile-menu-btn">☰</button>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="menu.html">Menu</a>
+                <a href="events.html">Events</a>
+                <a href="vip.html">VIP</a>
+                <a href="apartment.html">Apartments</a>
+                <a href="about.html">About</a>
+            </div>
+        </nav>
+        <a href="index.html" class="back-btn">← Back to Home</a>
+        <h1 class="page-title playfair">Upcoming Events</h1>
+        <p class="page-subtitle">Experience unforgettable nights at The Bay Lounge</p>
+        <div id="events-container"><div class="loading">Loading events...</div></div>
+    </div>
+    <script>
+        const SHEETDB_API = 'https://sheetdb.io/api/v1/r2929i5jjlyqm';
+        const WHATSAPP_NUMBER = '2348092949597';
+        document.addEventListener('DOMContentLoaded', loadEvents);
+        async function loadEvents() {
+            try {
+                const response = await fetch(SHEETDB_API);
+                const data = await response.json();
+                const events = data.filter(item => item.type === 'event' && item.status !== 'cancelled');
+                if (events.length === 0) { document.getElementById('events-container').innerHTML = '<div class="no-events"><h3>No upcoming events at the moment</h3><p>Check back soon for exciting updates!</p></div>'; return; }
+                renderEvents(events);
+            } catch (error) { document.getElementById('events-container').innerHTML = '<div class="error">Failed to load events. Please refresh the page.</div>'; }
+        }
+        function renderEvents(events) {
+            const container = document.getElementById('events-container');
+            const html = events.map(event => {
+                const tiers = [];
+                if (event.t1) tiers.push({ name: 'Standard', price: event.t1 });
+                if (event.t2) tiers.push({ name: 'VIP', price: event.t2 });
+                if (event.t3) tiers.push({ name: 'VVIP', price: event.t3 });
+                return `<div class="event-card"><img src="${event.flyer_image || 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=800'}" alt="${event.name}" class="event-image"><div class="event-content"><div class="event-date">${event.date || 'Coming Soon'}</div><h2 class="event-title playfair">${event.name}</h2><p class="event-desc">${event.description || 'Join us for an exclusive experience at The Bay Lounge.'}</p><div class="ticket-section"><div class="ticket-label">Select Ticket Tier</div><div class="ticket-tiers">${tiers.map(tier => `<button class="tier-btn" onclick="buyTicket('${event.name}', '${tier.name}', '${tier.price}')">${tier.name}<br>₦${parseInt(tier.price).toLocaleString()}</button>`).join('')}</div></div></div></div>`;
+            }).join('');
+            container.innerHTML = `<div class="events-grid">${html}</div>`;
+        }
+        function buyTicket(eventName, tier, price) {
+            const message = `*Ticket Inquiry: ${eventName}*%0A%0ATier: ${tier}%0APrice: ₦${parseInt(price).toLocaleString()}%0A%0APlease confirm availability. How many tickets would you like?`;
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank');
+        }
+    </script>
+</body>
+</html>

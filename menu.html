@@ -1,0 +1,328 @@
+<!-- ============================================
+     PAGE 2: menu.html (Place Order / Menu List with Images)
+     ============================================ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Menu - The Bay Lounge</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pure-black: #000000;
+            --milk-cream: #FFFDD0;
+            --glass-border: rgba(255, 253, 208, 0.2);
+            --glass-bg: rgba(0, 0, 0, 0.6);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body {
+            font-family: 'Lato', sans-serif;
+            background: var(--pure-black);
+            color: var(--milk-cream);
+            min-height: 100vh;
+            background-image: url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=1600');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+            padding-bottom: 100px;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6));
+            z-index: -1;
+        }
+        h1, h2, h3, h4, .playfair { font-family: 'Playfair Display', serif; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; position: relative; z-index: 1; }
+        .nav-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; margin-bottom: 40px; border-bottom: 1px solid var(--glass-border); }
+        .logo { font-size: 1.8rem; letter-spacing: 2px; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); text-decoration: none; color: var(--milk-cream); }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { color: var(--milk-cream); text-decoration: none; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; transition: opacity 0.3s; position: relative; }
+        .nav-links a:hover { opacity: 0.7; }
+        .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 1px; background: var(--milk-cream); transition: width 0.3s; }
+        .nav-links a:hover::after { width: 100%; }
+        .btn { background: var(--milk-cream); color: var(--pure-black); border: none; padding: 12px 20px; font-family: 'Lato', sans-serif; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: all 0.3s ease; text-decoration: none; display: inline-block; text-align: center; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(255, 253, 208, 0.3); }
+        .btn-danger { background: transparent; color: #ff6b6b; border: 1px solid #ff6b6b; padding: 5px 10px; font-size: 0.7rem; cursor: pointer; text-transform: uppercase; }
+        .btn-danger:hover { background: #ff6b6b; color: var(--pure-black); }
+        .back-btn { display: inline-flex; align-items: center; gap: 8px; background: transparent; border: 1px solid var(--milk-cream); color: var(--milk-cream); padding: 10px 20px; font-size: 0.85rem; font-family: 'Lato', sans-serif; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; margin-bottom: 30px; transition: all 0.3s ease; text-decoration: none; }
+        .back-btn:hover { background: var(--milk-cream); color: var(--pure-black); }
+        .page-title { font-size: 3rem; text-align: center; margin-bottom: 40px; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); }
+        .loading { text-align: center; padding: 40px; font-size: 1.2rem; }
+        .error { text-align: center; padding: 40px; color: #ff6b6b; }
+        .category-section { margin-bottom: 50px; background: var(--glass-bg); border: 1px solid var(--glass-border); padding: 30px; backdrop-filter: blur(10px); }
+        .category-title { font-size: 1.8rem; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid var(--glass-border); text-transform: uppercase; letter-spacing: 2px; }
+        .menu-item { display: flex; align-items: center; gap: 20px; padding: 20px 0; border-bottom: 1px solid var(--glass-border); }
+        .menu-item:last-child { border-bottom: none; }
+        .item-image { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid var(--milk-cream); flex-shrink: 0; }
+        .item-info { flex: 1; }
+        .item-name { font-size: 1.1rem; margin-bottom: 5px; font-weight: 700; }
+        .item-desc { font-size: 0.85rem; opacity: 0.8; margin-bottom: 5px; }
+        .item-price { font-size: 1rem; font-weight: 700; color: var(--milk-cream); margin-top: 5px; }
+        .add-btn { background: transparent; border: 1px solid var(--milk-cream); color: var(--milk-cream); width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; transition: all 0.3s; flex-shrink: 0; }
+        .add-btn:hover { background: var(--milk-cream); color: var(--pure-black); }
+        .add-btn.added { background: var(--milk-cream); color: var(--pure-black); }
+        .cart-bar { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.95); border-top: 2px solid var(--milk-cream); padding: 20px; display: flex; justify-content: space-between; align-items: center; transform: translateY(100%); transition: transform 0.3s; z-index: 1000; backdrop-filter: blur(10px); flex-wrap: wrap; gap: 15px; }
+        .cart-bar.visible { transform: translateY(0); }
+        .cart-info { display: flex; align-items: center; gap: 20px; }
+        .cart-count { background: var(--milk-cream); color: var(--pure-black); width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; }
+        .cart-total { font-size: 1.2rem; font-weight: 700; }
+        .checkout-buttons { display: flex; gap: 15px; }
+        .btn-checkout { background: var(--milk-cream); color: var(--pure-black); padding: 12px 20px; font-size: 0.8rem; }
+        .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.95); z-index: 2000; align-items: center; justify-content: center; padding: 20px; }
+        .modal.active { display: flex; }
+        .modal-content { background: var(--pure-black); border: 1px solid var(--glass-border); padding: 40px; max-width: 500px; width: 100%; max-height: 90vh; overflow-y: auto; }
+        .modal-title { font-size: 1.8rem; margin-bottom: 20px; text-align: center; }
+        .order-summary { margin: 20px 0; padding: 20px; background: rgba(255,253,208,0.05); border: 1px solid var(--glass-border); max-height: 250px; overflow-y: auto; }
+        .summary-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--glass-border); }
+        .item-details { flex: 1; }
+        .item-qty { font-size: 0.85rem; opacity: 0.7; }
+        .item-actions { display: flex; align-items: center; gap: 10px; }
+        .summary-total { display: flex; justify-content: space-between; margin-top: 15px; padding-top: 15px; border-top: 2px solid var(--glass-border); font-weight: 700; font-size: 1.2rem; }
+        .order-type-toggle { display: flex; margin-bottom: 30px; border: 1px solid var(--glass-border); }
+        .toggle-btn { flex: 1; padding: 15px; background: transparent; border: none; color: var(--milk-cream); font-family: 'Lato', sans-serif; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: all 0.3s; }
+        .toggle-btn.active { background: var(--milk-cream); color: var(--pure-black); font-weight: 700; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; }
+        .form-group input { width: 100%; background: rgba(0,0,0,0.5); border: 1px solid var(--glass-border); color: var(--milk-cream); padding: 15px; font-family: 'Lato', sans-serif; font-size: 1rem; }
+        .form-group input:focus { outline: none; border-color: var(--milk-cream); }
+        .modal-actions { display: flex; gap: 10px; margin-top: 30px; flex-direction: column; }
+        .modal-btn { padding: 12px; border: 1px solid var(--milk-cream); background: transparent; color: var(--milk-cream); font-family: 'Lato', sans-serif; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: all 0.3s; }
+        .modal-btn.primary { background: var(--milk-cream); color: var(--pure-black); }
+        .cancel-cart-btn { background: transparent; border: 1px solid #ff6b6b; color: #ff6b6b; margin-top: 10px; }
+        .cancel-cart-btn:hover { background: #ff6b6b; color: var(--pure-black); }
+        .empty-cart { text-align: center; padding: 20px; opacity: 0.7; }
+        .hidden { display: none !important; }
+        .mobile-menu-btn { display: none; background: none; border: none; color: var(--milk-cream); font-size: 1.5rem; cursor: pointer; }
+        @media (max-width: 768px) { 
+            .nav-links { display: none; } 
+            .mobile-menu-btn { display: block; } 
+            .page-title { font-size: 2rem; } 
+            .menu-item { flex-wrap: wrap; }
+            .cart-bar { flex-direction: column; text-align: center; }
+            .checkout-buttons { width: 100%; flex-direction: column; }
+            .btn-checkout { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="nav-header">
+            <a href="index.html" class="logo playfair">The Bay Lounge</a>
+            <button class="mobile-menu-btn">☰</button>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="menu.html">Menu</a>
+                <a href="events.html">Events</a>
+                <a href="vip.html">VIP</a>
+                <a href="apartment.html">Apartments</a>
+                <a href="about.html">About</a>
+            </div>
+        </nav>
+        <a href="index.html" class="back-btn">← Back to Home</a>
+        <h1 class="page-title playfair">Our Menu</h1>
+        <div id="menu-container"><div class="loading">Loading menu...</div></div>
+    </div>
+    <div class="cart-bar" id="cart-bar">
+        <div class="cart-info">
+            <div class="cart-count" id="cart-count">0</div>
+            <div class="cart-total">₦<span id="cart-total">0</span></div>
+        </div>
+        <div class="checkout-buttons">
+            <button class="btn btn-checkout" onclick="openCheckout('wa1')">Checkout via WhatsApp 1</button>
+            <button class="btn btn-checkout" onclick="openCheckout('wa2')">Checkout via WhatsApp 2</button>
+        </div>
+    </div>
+    <div class="modal" id="checkout-modal">
+        <div class="modal-content">
+            <h2 class="modal-title playfair">Complete Order</h2>
+            <div class="order-summary" id="order-summary"></div>
+            <div class="order-type-toggle">
+                <button type="button" class="toggle-btn active" id="btn-dinein" onclick="setOrderType('dinein')">Dine-In</button>
+                <button type="button" class="toggle-btn" id="btn-delivery" onclick="setOrderType('delivery')">Delivery</button>
+            </div>
+            <div id="dinein-fields">
+                <div class="form-group"><label>Name</label><input type="text" id="dinein-name" placeholder="Your full name"></div>
+                <div class="form-group"><label>Table Number</label><input type="text" id="dinein-table" placeholder="e.g., Table 5"></div>
+            </div>
+            <div id="delivery-fields" class="hidden">
+                <div class="form-group"><label>Name</label><input type="text" id="delivery-name" placeholder="Your full name"></div>
+                <div class="form-group"><label>Phone Number</label><input type="tel" id="delivery-phone" placeholder="Contact number"></div>
+                <div class="form-group"><label>Email</label><input type="email" id="delivery-email" placeholder="Email address"></div>
+                <div class="form-group"><label>Delivery Address</label><input type="text" id="delivery-address" placeholder="Full delivery address"></div>
+            </div>
+            <div class="modal-actions">
+                <button class="modal-btn cancel-cart-btn" onclick="clearCart()">Cancel Entire Order</button>
+                <button class="modal-btn" onclick="closeCheckout()">Back</button>
+                <button class="modal-btn primary" id="submit-order-btn" onclick="submitOrder()">Send to WhatsApp</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        const SHEETDB_API = 'https://sheetdb.io/api/v1/r2929i5jjlyqm';
+        const WHATSAPP_NUMBER_1 = '2348092949597';
+        const WHATSAPP_NUMBER_2 = '2348092949595';
+        let cart = [], menuData = [], currentOrderType = 'dinein', selectedWhatsApp = 'wa1';
+        
+        document.addEventListener('DOMContentLoaded', loadMenu);
+        
+        async function loadMenu() {
+            try {
+                const response = await fetch(SHEETDB_API);
+                if (!response.ok) throw new Error('Failed to fetch');
+                const data = await response.json();
+                menuData = data.filter(item => item.type === 'menu' && item.status !== 'unavailable');
+                renderMenu(menuData);
+            } catch (error) {
+                document.getElementById('menu-container').innerHTML = '<div class="error">Failed to load menu. Please refresh the page.</div>';
+            }
+        }
+        
+        function getFoodImage(itemName) {
+            const name = itemName.toLowerCase();
+            if (name.includes('pizza')) return 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=150&h=150&fit=crop';
+            if (name.includes('burger')) return 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=150&h=150&fit=crop';
+            if (name.includes('pasta')) return 'https://images.unsplash.com/photo-1473093226795-af9932fe5856?w=150&h=150&fit=crop';
+            if (name.includes('steak')) return 'https://images.unsplash.com/photo-1600891964092-4316c288032e?w=150&h=150&fit=crop';
+            if (name.includes('salad')) return 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=150&h=150&fit=crop';
+            if (name.includes('soup')) return 'https://images.unsplash.com/photo-1547592166-23ac45744acd?w=150&h=150&fit=crop';
+            if (name.includes('chicken')) return 'https://images.unsplash.com/photo-1598103442097-8b74394b95c6?w=150&h=150&fit=crop';
+            if (name.includes('fish')) return 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=150&h=150&fit=crop';
+            if (name.includes('cocktail')) return 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=150&h=150&fit=crop';
+            if (name.includes('wine')) return 'https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?w=150&h=150&fit=crop';
+            return 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=150&h=150&fit=crop';
+        }
+        
+        function renderMenu(items) {
+            const container = document.getElementById('menu-container');
+            const grouped = items.reduce((acc, item) => {
+                const cat = item.category || 'Other';
+                if (!acc[cat]) acc[cat] = [];
+                acc[cat].push(item);
+                return acc;
+            }, {});
+            let html = '';
+            for (const [category, categoryItems] of Object.entries(grouped)) {
+                html += `<div class="category-section"><h2 class="category-title playfair">${category}</h2>`;
+                html += categoryItems.map(item => `
+                    <div class="menu-item">
+                        <img src="${getFoodImage(item.name)}" class="item-image" alt="${item.name}">
+                        <div class="item-info">
+                            <div class="item-name">${item.name}</div>
+                            ${item.description ? `<div class="item-desc">${item.description}</div>` : ''}
+                            <div class="item-price">₦${parseInt(item.price).toLocaleString()}</div>
+                        </div>
+                        <button class="add-btn" onclick="addToCart('${item.name.replace(/'/g, "\\'")}', ${item.price})">+</button>
+                    </div>
+                `).join('');
+                html += `</div>`;
+            }
+            container.innerHTML = html;
+        }
+        
+        function addToCart(name, price) {
+            cart.push({ name, price: parseInt(price), id: Date.now() + Math.random() });
+            updateCartDisplay();
+            const btns = document.querySelectorAll('.add-btn');
+            btns.forEach(btn => { if (btn.textContent === '+') btn.classList.remove('added'); });
+            const eventBtn = event.target;
+            eventBtn.classList.add('added');
+            eventBtn.textContent = '✓';
+            setTimeout(() => { eventBtn.classList.remove('added'); eventBtn.textContent = '+'; }, 1000);
+        }
+        
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartDisplay();
+            if (cart.length > 0) openCheckout(selectedWhatsApp);
+            else closeCheckout();
+        }
+        
+        function clearCart() {
+            cart = [];
+            updateCartDisplay();
+            closeCheckout();
+        }
+        
+        function updateCartDisplay() {
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            document.getElementById('cart-count').textContent = cart.length;
+            document.getElementById('cart-total').textContent = total.toLocaleString();
+            document.getElementById('cart-bar').classList.toggle('visible', cart.length > 0);
+        }
+        
+        function setOrderType(type) {
+            currentOrderType = type;
+            document.getElementById('btn-dinein').classList.toggle('active', type === 'dinein');
+            document.getElementById('btn-delivery').classList.toggle('active', type === 'delivery');
+            document.getElementById('dinein-fields').classList.toggle('hidden', type !== 'dinein');
+            document.getElementById('delivery-fields').classList.toggle('hidden', type !== 'delivery');
+        }
+        
+        function openCheckout(waType) {
+            selectedWhatsApp = waType;
+            const modal = document.getElementById('checkout-modal');
+            const summaryDiv = document.getElementById('order-summary');
+            if (cart.length === 0) { 
+                summaryDiv.innerHTML = '<div class="empty-cart">Your cart is empty</div>'; 
+                modal.classList.add('active'); 
+                return; 
+            }
+            const grouped = {};
+            cart.forEach((item, index) => { 
+                if (!grouped[item.name]) grouped[item.name] = { items: [], totalPrice: 0, indices: [] }; 
+                grouped[item.name].items.push(item); 
+                grouped[item.name].totalPrice += item.price;
+                grouped[item.name].indices.push(index);
+            });
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            let html = '';
+            for (const [name, data] of Object.entries(grouped)) {
+                const qty = data.items.length;
+                const price = data.totalPrice;
+                const firstIndex = data.indices[0];
+                html += `<div class="summary-item"><div class="item-details"><div class="item-qty">${qty}x</div><div class="item-name-summary">${name}</div></div><div class="item-actions"><span class="item-price-summary">₦${price.toLocaleString()}</span><button class="btn-danger" onclick="removeFromCart(${firstIndex})">Remove</button></div></div>`;
+            }
+            html += `<div class="summary-total"><span>Total</span><span>₦${total.toLocaleString()}</span></div>`;
+            summaryDiv.innerHTML = html;
+            modal.classList.add('active');
+        }
+        
+        function closeCheckout() { document.getElementById('checkout-modal').classList.remove('active'); }
+        
+        function submitOrder() {
+            const grouped = {};
+            cart.forEach(item => { grouped[item.name] = (grouped[item.name] || 0) + 1; });
+            let total = 0, orderDetails = '';
+            for (const [itemName, qty] of Object.entries(grouped)) { 
+                const price = cart.find(c => c.name === itemName).price; 
+                total += price * qty; 
+                orderDetails += `${qty}x ${itemName} - ₦${(price * qty).toLocaleString()}%0A`; 
+            }
+            let message = `*New Order from The Bay Lounge*%0A%0A`;
+            if (currentOrderType === 'dinein') {
+                const name = document.getElementById('dinein-name').value, table = document.getElementById('dinein-table').value;
+                if (!name || !table) { alert('Please fill in all fields'); return; }
+                message += `*Order Type:* Dine-In%0A*Customer:* ${name}%0A*Table:* ${table}%0A%0A`;
+            } else {
+                const name = document.getElementById('delivery-name').value, phone = document.getElementById('delivery-phone').value, email = document.getElementById('delivery-email').value, address = document.getElementById('delivery-address').value;
+                if (!name || !phone || !email || !address) { alert('Please fill in all fields'); return; }
+                message += `*Order Type:* Delivery%0A*Customer:* ${name}%0A*Phone:* ${phone}%0A*Email:* ${email}%0A*Address:* ${address}%0A%0A`;
+            }
+            message += `*Order:*%0A${orderDetails}%0A*Total: ₦${total.toLocaleString()}*`;
+            const whatsappNumber = selectedWhatsApp === 'wa1' ? WHATSAPP_NUMBER_1 : WHATSAPP_NUMBER_2;
+            window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
+            cart = []; updateCartDisplay(); closeCheckout();
+            document.getElementById('dinein-name').value = ''; document.getElementById('dinein-table').value = '';
+            document.getElementById('delivery-name').value = ''; document.getElementById('delivery-phone').value = '';
+            document.getElementById('delivery-email').value = ''; document.getElementById('delivery-address').value = '';
+            setOrderType('dinein');
+        }
+        
+        document.getElementById('checkout-modal').addEventListener('click', function(e) { if (e.target === this) closeCheckout(); });
+    </script>
+</body>
+</html>

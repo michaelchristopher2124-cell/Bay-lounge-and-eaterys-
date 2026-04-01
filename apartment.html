@@ -1,0 +1,110 @@
+<!-- ============================================
+     PAGE 3: apartment.html (Apartment Booking)
+     ============================================ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Apartments - The Bay Lounge</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pure-black: #000000;
+            --milk-cream: #FFFDD0;
+            --glass-border: rgba(255, 253, 208, 0.2);
+            --glass-bg: rgba(0, 0, 0, 0.6);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body {
+            font-family: 'Lato', sans-serif;
+            background: var(--pure-black);
+            color: var(--milk-cream);
+            min-height: 100vh;
+            background-image: url('https://images.unsplash.com/photo-1574096079513-d8259312b785?q=80&w=1600');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+        }
+        body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)); z-index: -1; }
+        h1, h2, h3, h4, .playfair { font-family: 'Playfair Display', serif; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; position: relative; z-index: 1; }
+        .nav-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; margin-bottom: 40px; border-bottom: 1px solid var(--glass-border); }
+        .logo { font-size: 1.8rem; letter-spacing: 2px; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); text-decoration: none; color: var(--milk-cream); }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { color: var(--milk-cream); text-decoration: none; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; transition: opacity 0.3s; position: relative; }
+        .nav-links a:hover { opacity: 0.7; }
+        .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 1px; background: var(--milk-cream); transition: width 0.3s; }
+        .nav-links a:hover::after { width: 100%; }
+        .btn { background: var(--milk-cream); color: var(--pure-black); border: none; padding: 15px 30px; font-family: 'Lato', sans-serif; font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: all 0.3s ease; text-decoration: none; display: inline-block; text-align: center; width: 100%; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(255, 253, 208, 0.3); }
+        .back-btn { display: inline-flex; align-items: center; gap: 8px; background: transparent; border: 1px solid var(--milk-cream); color: var(--milk-cream); padding: 10px 20px; font-size: 0.85rem; font-family: 'Lato', sans-serif; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; margin-bottom: 30px; transition: all 0.3s ease; text-decoration: none; }
+        .back-btn:hover { background: var(--milk-cream); color: var(--pure-black); }
+        .form-container { max-width: 600px; margin: 0 auto; background: var(--glass-bg); border: 1px solid var(--glass-border); padding: 50px; backdrop-filter: blur(10px); }
+        .form-title { font-size: 2.5rem; margin-bottom: 10px; text-align: center; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); }
+        .form-subtitle { text-align: center; margin-bottom: 40px; opacity: 0.8; font-size: 1.1rem; }
+        .form-group { margin-bottom: 25px; }
+        .form-group label { display: block; margin-bottom: 10px; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 2px; font-weight: 700; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; background: rgba(0,0,0,0.5); border: 1px solid var(--glass-border); color: var(--milk-cream); padding: 15px; font-family: 'Lato', sans-serif; font-size: 1rem; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--milk-cream); }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .apartment-features { margin: 30px 0; padding: 20px; background: rgba(255,253,208,0.05); border: 1px solid var(--glass-border); }
+        .apartment-features h3 { margin-bottom: 15px; font-size: 1.1rem; }
+        .apartment-features ul { list-style: none; padding: 0; }
+        .apartment-features li { padding: 8px 0; padding-left: 25px; position: relative; }
+        .apartment-features li::before { content: '✓'; position: absolute; left: 0; color: var(--milk-cream); }
+        .mobile-menu-btn { display: none; background: none; border: none; color: var(--milk-cream); font-size: 1.5rem; cursor: pointer; }
+        @media (max-width: 768px) { .nav-links { display: none; } .mobile-menu-btn { display: block; } .form-container { padding: 30px; } .form-title { font-size: 1.8rem; } .form-row { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="nav-header">
+            <a href="index.html" class="logo playfair">The Bay Lounge</a>
+            <button class="mobile-menu-btn">☰</button>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="menu.html">Menu</a>
+                <a href="events.html">Events</a>
+                <a href="vip.html">VIP</a>
+                <a href="apartment.html">Apartments</a>
+                <a href="about.html">About</a>
+            </div>
+        </nav>
+        <a href="index.html" class="back-btn">← Back to Home</a>
+        <div class="form-container">
+            <h1 class="form-title playfair">Apartment Booking</h1>
+            <p class="form-subtitle">Experience luxury accommodation</p>
+            <form id="apartment-form" onsubmit="submitBooking(event)">
+                <div class="form-group"><label>Full Name</label><input type="text" id="guest-name" required placeholder="Your full name"></div>
+                <div class="form-row">
+                    <div class="form-group"><label>Check-in Date</label><input type="date" id="check-in" required></div>
+                    <div class="form-group"><label>Check-out Date</label><input type="date" id="check-out" required></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>Number of Guests</label><select id="guests" required><option value="">Select</option><option value="1">1 Guest</option><option value="2">2 Guests</option><option value="3">3 Guests</option><option value="4">4 Guests</option><option value="5+">5+ Guests</option></select></div>
+                    <div class="form-group"><label>Apartment Type</label><select id="apt-type" required><option value="">Select</option><option value="Standard Suite">Standard Suite</option><option value="Deluxe Suite">Deluxe Suite</option><option value="Penthouse">Penthouse</option></select></div>
+                </div>
+                <div class="form-group"><label>Phone Number</label><input type="tel" id="guest-phone" required placeholder="Contact number"></div>
+                <div class="form-group"><label>Email Address</label><input type="email" id="guest-email" placeholder="Email address"></div>
+                <div class="form-group"><label>Special Requests</label><textarea id="special-requests" rows="3" placeholder="Any special requirements..."></textarea></div>
+                <div class="apartment-features"><h3>Included Amenities</h3><ul><li>24/7 Concierge Service</li><li>Complimentary Breakfast</li><li>Access to Lounge & Pool</li><li>Free High-Speed WiFi</li><li>Room Service Available</li></ul></div>
+                <button type="submit" class="btn">Request Booking</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        const WHATSAPP_NUMBER = '2348092949597';
+        document.getElementById('check-in').min = new Date().toISOString().split('T')[0];
+        document.getElementById('check-out').min = new Date().toISOString().split('T')[0];
+        function submitBooking(e) {
+            e.preventDefault();
+            const name = document.getElementById('guest-name').value, checkIn = document.getElementById('check-in').value, checkOut = document.getElementById('check-out').value, guests = document.getElementById('guests').value, aptType = document.getElementById('apt-type').value, phone = document.getElementById('guest-phone').value, email = document.getElementById('guest-email').value, requests = document.getElementById('special-requests').value;
+            let message = `*Apartment Booking Request*%0A%0A*Name:* ${name}%0A*Phone:* ${phone}%0A${email ? `*Email:* ${email}%0A` : ''}*Apartment Type:* ${aptType}%0A*Check-in:* ${checkIn}%0A*Check-out:* ${checkOut}%0A*Guests:* ${guests}%0A${requests ? `*Special Requests:* ${requests}%0A` : ''}%0APlease confirm availability and pricing.`;
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank');
+            e.target.reset();
+        }
+    </script>
+</body>
+</html>

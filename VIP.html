@@ -1,0 +1,103 @@
+<!-- ============================================
+     PAGE 6: vip.html (VIP Table Reservation)
+     ============================================ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>VIP Reservation - The Bay Lounge</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pure-black: #000000;
+            --milk-cream: #FFFDD0;
+            --glass-border: rgba(255, 253, 208, 0.2);
+            --glass-bg: rgba(0, 0, 0, 0.6);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body {
+            font-family: 'Lato', sans-serif;
+            background: var(--pure-black);
+            color: var(--milk-cream);
+            min-height: 100vh;
+            background-image: url('https://images.unsplash.com/photo-1574096079513-d8259312b785?q=80&w=1600');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+        }
+        body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)); z-index: -1; }
+        h1, h2, h3, h4, .playfair { font-family: 'Playfair Display', serif; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; position: relative; z-index: 1; }
+        .nav-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; margin-bottom: 40px; border-bottom: 1px solid var(--glass-border); }
+        .logo { font-size: 1.8rem; letter-spacing: 2px; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); text-decoration: none; color: var(--milk-cream); }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { color: var(--milk-cream); text-decoration: none; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; transition: opacity 0.3s; position: relative; }
+        .nav-links a:hover { opacity: 0.7; }
+        .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 1px; background: var(--milk-cream); transition: width 0.3s; }
+        .nav-links a:hover::after { width: 100%; }
+        .btn { background: var(--milk-cream); color: var(--pure-black); border: none; padding: 15px 30px; font-family: 'Lato', sans-serif; font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: all 0.3s ease; text-decoration: none; display: inline-block; text-align: center; width: 100%; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(255, 253, 208, 0.3); }
+        .back-btn { display: inline-flex; align-items: center; gap: 8px; background: transparent; border: 1px solid var(--milk-cream); color: var(--milk-cream); padding: 10px 20px; font-size: 0.85rem; font-family: 'Lato', sans-serif; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; margin-bottom: 30px; transition: all 0.3s ease; text-decoration: none; }
+        .back-btn:hover { background: var(--milk-cream); color: var(--pure-black); }
+        .form-container { max-width: 600px; margin: 0 auto; background: var(--glass-bg); border: 1px solid var(--glass-border); padding: 50px; backdrop-filter: blur(10px); }
+        .form-title { font-size: 2.5rem; margin-bottom: 10px; text-align: center; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); }
+        .form-subtitle { text-align: center; margin-bottom: 40px; opacity: 0.8; font-size: 1.1rem; }
+        .form-group { margin-bottom: 25px; }
+        .form-group label { display: block; margin-bottom: 10px; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 2px; font-weight: 700; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; background: rgba(0,0,0,0.5); border: 1px solid var(--glass-border); color: var(--milk-cream); padding: 15px; font-family: 'Lato', sans-serif; font-size: 1rem; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--milk-cream); }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .vip-perks { margin: 30px 0; padding: 25px; background: rgba(255,253,208,0.05); border: 1px solid var(--glass-border); }
+        .vip-perks h3 { margin-bottom: 20px; font-size: 1.2rem; text-align: center; }
+        .perks-list { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .perks-list li { padding-left: 25px; position: relative; font-size: 0.9rem; }
+        .perks-list li::before { content: '★'; position: absolute; left: 0; color: var(--milk-cream); }
+        .mobile-menu-btn { display: none; background: none; border: none; color: var(--milk-cream); font-size: 1.5rem; cursor: pointer; }
+        @media (max-width: 768px) { .nav-links { display: none; } .mobile-menu-btn { display: block; } .form-container { padding: 30px; } .form-title { font-size: 1.8rem; } .form-row { grid-template-columns: 1fr; } .perks-list { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="nav-header">
+            <a href="index.html" class="logo playfair">The Bay Lounge</a>
+            <button class="mobile-menu-btn">☰</button>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="menu.html">Menu</a>
+                <a href="events.html">Events</a>
+                <a href="vip.html">VIP</a>
+                <a href="apartment.html">Apartments</a>
+                <a href="about.html">About</a>
+            </div>
+        </nav>
+        <a href="index.html" class="back-btn">← Back to Home</a>
+        <div class="form-container">
+            <h1 class="form-title playfair">VIP Table Reservation</h1>
+            <p class="form-subtitle">Elevate your experience with exclusive service</p>
+            <form id="vip-form" onsubmit="submitVIP(event)">
+                <div class="form-group"><label>Full Name</label><input type="text" id="vip-name" required placeholder="Your full name"></div>
+                <div class="form-group"><label>Phone Number</label><input type="tel" id="vip-phone" required placeholder="Contact number"></div>
+                <div class="form-row"><div class="form-group"><label>Date</label><input type="date" id="vip-date" required></div><div class="form-group"><label>Time</label><input type="time" id="vip-time" required></div></div>
+                <div class="form-row"><div class="form-group"><label>Number of Guests</label><select id="vip-guests" required><option value="">Select</option><option value="2">2 Guests</option><option value="3">3 Guests</option><option value="4">4 Guests</option><option value="5">5 Guests</option><option value="6">6 Guests</option><option value="7+">7+ Guests</option></select></div><div class="form-group"><label>Preferred Section</label><select id="vip-section"><option value="">No preference</option><option value="Rooftop VIP">Rooftop VIP</option><option value="Main Lounge VIP">Main Lounge VIP</option><option value="Private Booth">Private Booth</option></select></div></div>
+                <div class="form-group"><label>Occasion (Optional)</label><input type="text" id="vip-occasion" placeholder="Birthday, Anniversary, Business..."></div>
+                <div class="form-group"><label>Special Requests</label><textarea id="vip-requests" rows="3" placeholder="Bottle service preferences, decoration requests, dietary restrictions..."></textarea></div>
+                <div class="vip-perks"><h3>VIP Table Includes</h3><ul class="perks-list"><li>Priority Entry</li><li>Dedicated Server</li><li>Complimentary Welcome Drink</li><li>Premium Seating</li><li>Bottle Service Available</li><li>Personalized Experience</li></ul></div>
+                <button type="submit" class="btn">Reserve VIP Table</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        const WHATSAPP_NUMBER = '2348092949597';
+        document.getElementById('vip-date').min = new Date().toISOString().split('T')[0];
+        function submitVIP(e) {
+            e.preventDefault();
+            const name = document.getElementById('vip-name').value, phone = document.getElementById('vip-phone').value, date = document.getElementById('vip-date').value, time = document.getElementById('vip-time').value, guests = document.getElementById('vip-guests').value, section = document.getElementById('vip-section').value, occasion = document.getElementById('vip-occasion').value, requests = document.getElementById('vip-requests').value;
+            let message = `*VIP Table Reservation*%0A%0A*Name:* ${name}%0A*Phone:* ${phone}%0A*Date:* ${date}%0A*Time:* ${time}%0A*Guests:* ${guests}%0A${section ? `*Preferred Section:* ${section}%0A` : ''}${occasion ? `*Occasion:* ${occasion}%0A` : ''}${requests ? `*Special Requests:* ${requests}%0A` : ''}%0APlease confirm availability and minimum spend.`;
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank');
+            e.target.reset();
+        }
+    </script>
+</body>
+</html>

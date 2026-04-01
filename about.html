@@ -1,0 +1,109 @@
+<!-- ============================================
+     PAGE 7: about.html (About Us)
+     ============================================ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>About Us - The Bay Lounge</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pure-black: #000000;
+            --milk-cream: #FFFDD0;
+            --glass-border: rgba(255, 253, 208, 0.2);
+            --glass-bg: rgba(0, 0, 0, 0.6);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body {
+            font-family: 'Lato', sans-serif;
+            background: var(--pure-black);
+            color: var(--milk-cream);
+            min-height: 100vh;
+            background-image: url('https://images.unsplash.com/photo-1574096079513-d8259312b785?q=80&w=1600');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+        }
+        body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)); z-index: -1; }
+        h1, h2, h3, h4, .playfair { font-family: 'Playfair Display', serif; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; position: relative; z-index: 1; }
+        .nav-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; margin-bottom: 40px; border-bottom: 1px solid var(--glass-border); }
+        .logo { font-size: 1.8rem; letter-spacing: 2px; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); text-decoration: none; color: var(--milk-cream); }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { color: var(--milk-cream); text-decoration: none; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; transition: opacity 0.3s; position: relative; }
+        .nav-links a:hover { opacity: 0.7; }
+        .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 1px; background: var(--milk-cream); transition: width 0.3s; }
+        .nav-links a:hover::after { width: 100%; }
+        .btn { background: var(--milk-cream); color: var(--pure-black); border: none; padding: 15px 30px; font-family: 'Lato', sans-serif; font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: all 0.3s ease; text-decoration: none; display: inline-block; text-align: center; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(255, 253, 208, 0.3); }
+        .back-btn { display: inline-flex; align-items: center; gap: 8px; background: transparent; border: 1px solid var(--milk-cream); color: var(--milk-cream); padding: 10px 20px; font-size: 0.85rem; font-family: 'Lato', sans-serif; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; margin-bottom: 30px; transition: all 0.3s ease; text-decoration: none; }
+        .back-btn:hover { background: var(--milk-cream); color: var(--pure-black); }
+        .about-hero { text-align: center; max-width: 900px; margin: 0 auto 60px; }
+        .about-title { font-size: 3.5rem; margin-bottom: 30px; text-shadow: 2px 2px 8px rgba(0,0,0,0.8); }
+        .about-intro { font-size: 1.3rem; line-height: 1.8; margin-bottom: 30px; opacity: 0.95; }
+        .about-text { font-size: 1.1rem; line-height: 2; opacity: 0.9; }
+        .features-section { margin: 60px 0; }
+        .section-title { font-size: 2rem; text-align: center; margin-bottom: 40px; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
+        .feature-card { background: var(--glass-bg); border: 1px solid var(--glass-border); padding: 40px 30px; text-align: center; backdrop-filter: blur(10px); transition: transform 0.3s; }
+        .feature-card:hover { transform: translateY(-5px); border-color: var(--milk-cream); }
+        .feature-icon { font-size: 3rem; margin-bottom: 20px; }
+        .feature-title { font-size: 1.3rem; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 2px; }
+        .feature-desc { font-size: 0.95rem; line-height: 1.6; opacity: 0.8; }
+        .info-section { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin: 60px 0; background: var(--glass-bg); border: 1px solid var(--glass-border); padding: 50px; backdrop-filter: blur(10px); }
+        .info-block h3 { font-size: 1.5rem; margin-bottom: 20px; }
+        .info-block p { line-height: 1.8; margin-bottom: 15px; opacity: 0.9; }
+        .contact-info { margin-top: 20px; }
+        .contact-item { margin-bottom: 10px; font-size: 1.1rem; }
+        .hours-list { list-style: none; }
+        .hours-list li { padding: 8px 0; border-bottom: 1px solid var(--glass-border); display: flex; justify-content: space-between; }
+        .hours-list li:last-child { border-bottom: none; }
+        .cta-section { text-align: center; margin: 60px 0; padding: 60px; background: var(--glass-bg); border: 1px solid var(--glass-border); backdrop-filter: blur(10px); }
+        .cta-title { font-size: 2rem; margin-bottom: 20px; }
+        .cta-text { font-size: 1.1rem; margin-bottom: 30px; opacity: 0.9; }
+        .mobile-menu-btn { display: none; background: none; border: none; color: var(--milk-cream); font-size: 1.5rem; cursor: pointer; }
+        @media (max-width: 768px) { .nav-links { display: none; } .mobile-menu-btn { display: block; } .about-title { font-size: 2.2rem; } .about-intro { font-size: 1.1rem; } .features-grid { grid-template-columns: 1fr; } .info-section { grid-template-columns: 1fr; padding: 30px; } .cta-section { padding: 30px; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="nav-header">
+            <a href="index.html" class="logo playfair">The Bay Lounge</a>
+            <button class="mobile-menu-btn">☰</button>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="menu.html">Menu</a>
+                <a href="events.html">Events</a>
+                <a href="vip.html">VIP</a>
+                <a href="apartment.html">Apartments</a>
+                <a href="about.html">About</a>
+            </div>
+        </nav>
+        <a href="index.html" class="back-btn">← Back to Home</a>
+        <div class="about-hero">
+            <h1 class="about-title playfair">The Bay Lounge Experience</h1>
+            <p class="about-intro">Where luxury meets leisure in perfect harmony. Nestled in the heart of Lekki, The Bay Lounge redefines premium hospitality with an atmosphere designed for those who appreciate the finer things in life.</p>
+            <p class="about-text">From our carefully curated menu featuring both local delicacies and international cuisine, to our signature cocktails crafted by master mixologists, every detail is designed to exceed your expectations. Whether you're seeking an intimate dinner, a vibrant night out, or a sophisticated venue for your special occasion, The Bay Lounge delivers an unforgettable experience.</p>
+        </div>
+        <div class="features-section">
+            <h2 class="section-title playfair">Our Signature Features</h2>
+            <div class="features-grid">
+                <div class="feature-card"><div class="feature-icon">🔥</div><h3 class="feature-title">Fireplace Ambiance</h3><p class="feature-desc">Intimate seating around elegant fireplaces creating the perfect atmosphere for cozy evenings.</p></div>
+                <div class="feature-card"><div class="feature-icon">🌅</div><h3 class="feature-title">Rooftop Seating</h3><p class="feature-desc">Breathtaking panoramic views of the city skyline from our exclusive rooftop terrace.</p></div>
+                <div class="feature-card"><div class="feature-icon">🎶</div><h3 class="feature-title">Live Music</h3><p class="feature-desc">Curated performances from top artists creating the perfect soundtrack to your evening.</p></div>
+                <div class="feature-card"><div class="feature-icon">🏆</div><h3 class="feature-title">Live Sports</h3><p class="feature-desc">Premium viewing experience for major sporting events on state-of-the-art screens.</p></div>
+                <div class="feature-card"><div class="feature-icon">🍸</div><h3 class="feature-title">Great Cocktails</h3><p class="feature-desc">Award-winning mixologists crafting signature drinks and classic favorites.</p></div>
+                <div class="feature-card"><div class="feature-icon">🍽️</div><h3 class="feature-title">Fine Dining</h3><p class="feature-desc">Exquisite culinary creations blending local flavors with international techniques.</p></div>
+            </div>
+        </div>
+        <div class="info-section">
+            <div class="info-block"><h3 class="playfair">Visit Us</h3><p>Plot 10, Block 12A,<br>Admiralty Road,<br>Lekki Phase 1, Lagos</p><div class="contact-info"><div class="contact-item">📞 +234 916 211 9375</div><div class="contact-item">✉️ info@thebaylounge.com</div></div></div>
+            <div class="info-block"><h3 class="playfair">Opening Hours</h3><ul class="hours-list"><li><span>Monday - Thursday</span><span>12PM - 12AM</span></li><li><span>Friday - Saturday</span><span>12PM - 2AM</span></li><li><span>Sunday</span><span>12PM - 11PM</span></li><li><span>Happy Hour</span><span>4PM - 7PM Daily</span></li></ul></div>
+        </div>
+        <div class="cta-section"><h2 class="cta-title playfair">Ready to Experience Luxury?</h2><p class="cta-text">Reserve your table today and discover why The Bay Lounge is Lagos' premier destination for luxury dining and entertainment.</p><a href="vip.html" class="btn">Book VIP Table</a></div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!-- ============================================
+     PAGE 1: index.html (Home Page)
+     ============================================ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>The Bay Lounge - Luxury & Leisure</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pure-black: #000000;
+            --milk-cream: #FFFDD0;
+            --glass-border: rgba(255, 253, 208, 0.2);
+            --glass-bg: rgba(0, 0, 0, 0.6);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body {
+            font-family: 'Lato', sans-serif;
+            background: var(--pure-black);
+            color: var(--milk-cream);
+            min-height: 100vh;
+            background-image: url('https://images.unsplash.com/photo-1574096079513-d8259312b785?q=80&w=1600');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6));
+            z-index: -1;
+        }
+        h1, h2, h3, h4, .playfair { font-family: 'Playfair Display', serif; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; position: relative; z-index: 1; }
+        .nav-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; margin-bottom: 40px; border-bottom: 1px solid var(--glass-border); }
+        .logo { font-size: 1.8rem; letter-spacing: 2px; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); text-decoration: none; color: var(--milk-cream); }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { color: var(--milk-cream); text-decoration: none; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; transition: opacity 0.3s; position: relative; }
+        .nav-links a:hover { opacity: 0.7; }
+        .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 1px; background: var(--milk-cream); transition: width 0.3s; }
+        .nav-links a:hover::after { width: 100%; }
+        .btn { background: var(--milk-cream); color: var(--pure-black); border: none; padding: 15px 30px; font-family: 'Lato', sans-serif; font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: all 0.3s ease; text-decoration: none; display: inline-block; text-align: center; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(255, 253, 208, 0.3); }
+        .back-btn { display: inline-flex; align-items: center; gap: 8px; background: transparent; border: 1px solid var(--milk-cream); color: var(--milk-cream); padding: 10px 20px; font-size: 0.85rem; font-family: 'Lato', sans-serif; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; margin-bottom: 30px; transition: all 0.3s ease; text-decoration: none; }
+        .back-btn:hover { background: var(--milk-cream); color: var(--pure-black); }
+        .home-hero { text-align: center; padding: 60px 20px; }
+        .brand-title { font-size: 4rem; margin-bottom: 10px; letter-spacing: 4px; text-shadow: 2px 2px 8px rgba(0,0,0,0.8); }
+        .brand-subtitle { font-size: 1.2rem; letter-spacing: 8px; text-transform: uppercase; margin-bottom: 60px; opacity: 0.9; }
+        .nav-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; max-width: 1000px; margin: 0 auto; }
+        .nav-card { background: var(--glass-bg); border: 1px solid var(--glass-border); padding: 40px; text-align: center; cursor: pointer; transition: all 0.3s ease; backdrop-filter: blur(10px); text-decoration: none; color: var(--milk-cream); }
+        .nav-card:hover { transform: translateY(-5px); border-color: var(--milk-cream); background: rgba(0,0,0,0.8); }
+        .nav-card h3 { font-size: 1.3rem; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 2px; }
+        .nav-card p { font-size: 0.9rem; opacity: 0.8; }
+        .mobile-menu-btn { display: none; background: none; border: none; color: var(--milk-cream); font-size: 1.5rem; cursor: pointer; }
+        @media (max-width: 768px) { .nav-links { display: none; } .mobile-menu-btn { display: block; } .brand-title { font-size: 2.5rem; } .nav-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="nav-header">
+            <a href="index.html" class="logo playfair">The Bay Lounge</a>
+            <button class="mobile-menu-btn">☰</button>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="menu.html">Menu</a>
+                <a href="events.html">Events</a>
+                <a href="vip.html">VIP</a>
+                <a href="apartment.html">Apartments</a>
+                <a href="about.html">About</a>
+            </div>
+        </nav>
+        <div class="home-hero">
+            <h1 class="brand-title playfair">B Ay & eatery Lounge</h1>
+            <p class="brand-subtitle">Luxury & Leisure</p>
+            <div class="nav-grid">
+                <a href="menu.html" class="nav-card"><h3>Place Order</h3><p>Explore our premium menu and order for dine-in or delivery</p></a>
+                <a href="vip.html" class="nav-card"><h3>VIP Table</h3><p>Reserve an exclusive table for an elevated experience</p></a>
+                <a href="host-event.html" class="nav-card"><h3>Host Event</h3><p>Plan your private celebration or corporate gathering</p></a>
+                <a href="events.html" class="nav-card"><h3>Upcoming Events</h3><p>Discover our exclusive parties and special nights</p></a>
+                <a href="apartment.html" class="nav-card"><h3>Apartments</h3><p>Book luxury accommodation for your stay</p></a>
+                <a href="about.html" class="nav-card"><h3>About Us</h3><p>Experience the essence of luxury hospitality</p></a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

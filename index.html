@@ -1,0 +1,52 @@
+<script>
+// PIN Protection for all pages
+(function() {
+    const CORRECT_PIN = "22223";
+    
+    if (sessionStorage.getItem('site_authenticated') === 'true') {
+        return;
+    }
+    
+    function showPinModal() {
+        const modalHtml = `
+            <div id="pinModal" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.95);z-index:10000;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(10px);">
+                <div style="background:#000;border:2px solid #FFFDD0;padding:40px;border-radius:20px;text-align:center;max-width:350px;width:90%;">
+                    <h3 style="font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:10px;color:#FFFDD0;">🔒 Preview Mode</h3>
+                    <p style="opacity:0.8;margin-bottom:25px;color:#FFFDD0;">Enter access PIN to continue:</p>
+                    <input type="password" id="pinInput" style="width:100%;padding:15px;font-size:1.2rem;text-align:center;letter-spacing:5px;background:rgba(255,253,208,0.1);border:1px solid #FFFDD0;color:#FFFDD0;border-radius:10px;margin-bottom:20px;font-family:monospace;" placeholder="Enter PIN" maxlength="5">
+                    <div style="display:flex;gap:15px;">
+                        <button onclick="window.location.href='index.html'" style="flex:1;padding:12px;border:1px solid #FFFDD0;background:transparent;color:#FFFDD0;cursor:pointer;border-radius:8px;font-weight:600;">Back</button>
+                        <button id="unlockBtn" style="flex:1;padding:12px;border:1px solid #FFFDD0;background:#FFFDD0;color:#000;cursor:pointer;border-radius:8px;font-weight:600;">Unlock</button>
+                    </div>
+                    <div id="pinError" style="color:#ff6b6b;font-size:0.8rem;margin-top:10px;display:none;">❌ Incorrect PIN</div>
+                </div>
+            </div>
+        `;
+        document.body.insertAdjacentHTML('afterbegin', modalHtml);
+        
+        const pinInput = document.getElementById('pinInput');
+        const unlockBtn = document.getElementById('unlockBtn');
+        const errorDiv = document.getElementById('pinError');
+        
+        pinInput.focus();
+        
+        function verify() {
+            if (pinInput.value === CORRECT_PIN) {
+                sessionStorage.setItem('site_authenticated', 'true');
+                location.reload();
+            } else {
+                errorDiv.style.display = 'block';
+                pinInput.value = '';
+                pinInput.focus();
+            }
+        }
+        
+        unlockBtn.onclick = verify;
+        pinInput.onkeypress = function(e) {
+            if (e.key === 'Enter') verify();
+        };
+    }
+    
+    showPinModal();
+})();
+</script>
